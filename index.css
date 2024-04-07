@@ -1,0 +1,809 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Cairo:wght@200..1000&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    outline: none;
+    user-select: none;
+    font-family: "Cairo", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    font-variation-settings:
+    "slnt" 0;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+::placeholder {
+    color: red;
+}
+
+body {
+    background-color: black;
+    height: 100vh;
+    width: 100vw;
+    max-height: 100vh;
+    max-width: 100vw;
+    display: grid;
+    grid-template-columns: 15vh 5vh 40vh 5vh 15vh;
+    grid-template-rows: repeat(3, 1fr);
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/*Grid items code*/
+
+#start-div-top {
+    grid-area: 1 / 3 / 2 / 4;
+    align-self: end;
+}
+
+#start-div-left {
+    grid-area: 2 / 1 / 3/ 2;
+    justify-self: end;
+}
+
+#start-div-middle-left {
+    grid-area: 2 / 2 / 3 / 3;
+    justify-self: end;
+}
+
+#start-div {
+    grid-area: 2 / 3 / 3 / 4;
+}
+
+#start-div-middle-right {
+    grid-area: 2 / 4 / 3 / 5;
+    justify-self: start;
+}
+
+#start-div-right {
+    grid-area: 2 / 5 / 3 / 6;
+    justify-self: start;
+}
+
+#start-div-bottom {
+    grid-area: 3 / 3 / 4 / 4;
+    align-self: start;
+}
+
+/*START SCREEN CODE*/
+
+#start-div, #start-div-middle-left, #start-div-middle-right, #start-div-top, #start-div-bottom, #start-div-left, #start-div-right {
+    height: 50vh;
+    width: 40vh;
+    background-color: black;
+    border: 10px rgb(59, 167, 167) solid;
+    animation-duration: 5s;    
+}
+
+#start-div {
+    border-top: none;
+    border-bottom: none;
+}
+
+#start-div-top, #start-div-bottom {
+    height: 10vh;
+}
+
+#start-div-middle-left, #start-div-middle-right {
+    width: 5vh;
+    height: 30vh;
+    border-right: none;
+    border-left: none;
+}
+
+#start-div-right, #start-div-left {
+    height: 50vh;
+    width: 15vh;
+    background-color: black;
+    border: 10px rgb(59, 167, 167) solid;
+}
+
+#start-div-right {
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+#start-div-left {
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+}
+
+#start-div-top {
+    border-bottom: none;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+}
+
+#start-div-bottom {
+    border-top: none;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+#start-div:hover, #start-div-left, #start-div-right, #start-div-middle-left, #start-div-middle-right, #start-div-top, #start-div-bottom {
+    cursor: pointer;
+}
+
+/*ANIMATIONS CODE*/
+
+@keyframes start-button-lightup {
+    0% {
+        background-color: black;
+        box-shadow: none;
+    }
+    25% {
+        background-color: rgb(59, 167, 167);
+        box-shadow: 0px 0px 5px 10px rgb(59, 167, 167);
+        border-width: 2px;
+        border-color:rgb(59, 167, 167);
+    }
+    30% {
+        background-color: rgb(35, 85, 85);
+        box-shadow: 0px 0px 2px 5px rgb(35, 85, 85);
+        border-width: 6px;
+        border-color:rgb(35, 85, 85);
+    }
+    55% {
+        background-color:rgb(64, 227, 227);
+        box-shadow: 0px 0px 5px 15px rgb(64, 227, 227);
+        border-width: 2px;
+        border-color:rgb(64, 227, 227);
+    }
+    100% {
+        background-color: rgb(0, 255, 255);
+        box-shadow: 0px 0px 5px 100vw rgb(0, 255, 255);
+        border-width: 0px;
+        border-color:rgb(0, 255, 255);
+    }
+}
+
+@keyframes start-button-lightup0 {
+    0% {
+        background-color: black;
+        box-shadow: none;
+    }
+    25% {
+        background-color: rgb(192, 140, 26);
+        box-shadow: 0px 0px 5px 10px rgb(192, 140, 26);
+        border-width: 2px;
+        border-color:rgbrgb(192, 140, 26);
+    }
+    30% {
+        background-color: rgb(124, 92, 23);
+        box-shadow: 0px 0px 2px 5px rgb(124, 92, 23);
+        border-width: 6px;
+        border-color:rgb(124, 92, 23);
+    }
+    55% {
+        background-color:rgb(222, 160, 26);
+        box-shadow: 0px 0px 5px 15px rgb(222, 160, 26);
+        border-width: 2px;
+        border-color:rgb(222, 160, 26);
+    }
+    100% {
+        background-color: rgb(255, 174, 0);
+        box-shadow: 0px 0px 5px 100vw rgb(255, 174, 0);
+        border-width: 0px;
+        border-color:rgb(255, 174, 0);
+    }
+}
+
+@keyframes start-button-lightup1 {
+    0% {
+        background-color: black;
+        box-shadow: none;
+    }
+    25% {
+        background-color: rgb(29, 151, 54);
+        box-shadow: 0px 0px 5px 10px rgb(29, 151, 54);
+        border-width: 2px;
+        border-color:rgb(29, 151, 54);
+    }
+    30% {
+        background-color: rgb(20, 95, 35);
+        box-shadow: 0px 0px 2px 5px rgb(20, 95, 35);
+        border-width: 6px;
+        border-color:rgb(20, 95, 35);
+    }
+    55% {
+        background-color:rgb(30, 212, 66);
+        box-shadow: 0px 0px 5px 15px rgb(30, 212, 66);
+        border-width: 2px;
+        border-color:rgb(30, 212, 66);
+    }
+    100% {
+        background-color: rgb(0, 255, 51);
+        box-shadow: 0px 0px 5px 100vw rgb(0, 255, 51);
+        border-width: 0px;
+        border-color:rgb(0, 255, 51);
+    }
+}
+
+@keyframes start-button-lightup2 {
+    0% {
+        background-color: black;
+        box-shadow: none;
+    }
+    25% {
+        background-color: rgb(77, 19, 159);
+        box-shadow: 0px 0px 5px 10px rgb(77, 19, 159);
+        border-width: 2px;
+        border-color:rgb(77, 19, 159);
+    }
+    30% {
+        background-color: rgb(49, 16, 96);
+        box-shadow: 0px 0px 2px 5px rgb(49, 16, 96);
+        border-width: 6px;
+        border-color:rgb(49, 16, 96);
+    }
+    55% {
+        background-color:rgb(101, 27, 204);
+        box-shadow: 0px 0px 5px 15px rgb(101, 27, 204);
+        border-width: 2px;
+        border-color:rgb(101, 27, 204);
+    }
+    100% {
+        background-color: rgb(106, 0, 255);
+        box-shadow: 0px 0px 5px 100vw rgb(106, 0, 255);
+        border-width: 0px;
+        border-color:rgb(106, 0, 255);
+    }
+}
+
+@keyframes text-showup {
+    from {color: black}
+    to {color: white}
+}
+
+@keyframes settings-screen-showup {
+    0% {
+        width: 0vh;
+        height: 0vh;
+        color:rgb(0, 255, 255);
+    }
+    25% {
+        width: 5vh;
+        height: 5vh;
+    }
+    50% {
+        width: 85vh;
+        height: 5vh;
+    }
+    75% {
+        width: 85vh;
+        height: 85vh;
+    }
+    100% {
+        color: white;
+    }
+}
+
+@keyframes settings-screen-disappear {
+    0% {
+        width: 85vh;
+        height: 85vh;
+        color:white;
+    }
+    25% {
+        width: 85vh;
+        height: 5vh;
+    }
+    50% {
+        width: 5vh;
+        height: 5vh;
+    }
+    75% {
+        width: 0vh;
+        height: 0vh;
+    }
+    100% {
+        width: 0vh;
+        height: 0vh;
+        color: rgb(0, 255, 255);
+    }
+}
+
+@keyframes appear {
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+}
+
+@keyframes disappear {
+    from {
+        opacity: 100%;
+    }
+    to {
+        opacity: 0%;
+    }
+}
+
+/*MAIN MENU SCREEN CODE*/
+
+#main-menu {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    max-width: 100vw;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Cairo", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    font-variation-settings:
+    "slnt" 0;
+    font-size: 3rem;
+    color: rgb(0, 255, 255);
+    animation-duration: 2s;
+}
+
+h2 {
+    margin: 5vh;
+}
+
+h3 {
+    margin: 5vh;
+}
+
+h3:hover {
+    color: black;
+}
+
+#main-menu-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/*SETTINGS SCREEN CODE*/
+
+#settings-screen, #players-count-screen {
+    background-color: black;
+    border: 10px white solid;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    animation-duration: 1.5s;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    padding: 1vh;
+}
+
+.input-question, .confirm-question, .questions-list-button, .return-button, .question-section {
+    animation-duration: 0.75s;
+    justify-self: center;
+    align-self: center;
+}
+
+.input-question {
+    width: 80vh;
+    height: 10vh;
+    animation-duration: 0.75s;
+    padding: 1vw;
+    font-size: 2rem;
+    grid-area: 2 / 1 / 3 / 5;
+    border: 5px white solid;
+    background-color: black;
+    color: white;
+}
+
+.confirm-question, .return-button, .questions-list-button {
+    height: 10vh;
+    width: 10vh;
+    border: 5px white solid;
+    background-color: black;
+    font-size: 1.4rem;
+    color: white;
+}
+
+.confirm-question {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.questions-list-button {
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+.error-message {
+    grid-area: 1 / 3 / 2 / 4;
+    font-size: 1.4rem;
+    color: red;
+}
+
+.return-button {
+    grid-area: 1 / 4 / 2 / 5;
+}
+
+.question-section {
+    min-height: 60vh;
+    height: 60vh;
+    max-height: 60vh;
+    width: 100%;
+    border: 5px white solid;
+    background-color: black;
+    font-size: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    grid-area: 3 / 1 / 4 / 5;
+    overflow: scroll;
+    opacity: 0%;
+}
+
+.answer-area {
+    height: 10vh;
+    width: 20vh;
+    background-color:black;
+    border: 5px white solid;
+    text-align: center;
+    color: white;
+    font-size: 1rem;
+    animation-duration: 0.75s;
+}
+
+.answer1-area {
+    grid-area: 3 / 1 / 4 / 2   
+}
+
+.answer2-area {
+    grid-area: 3 / 2 / 4 / 3   
+}
+
+.answer3-area {
+    grid-area: 3 / 3 / 4 / 4   
+}
+
+.answer4-area {
+    grid-area: 3 / 4 / 4 / 5   
+}
+
+.answer1-radio {
+    grid-area: 4 / 1 / 5 / 2   
+}
+
+.answer2-radio {
+    grid-area: 4 / 2 / 5 / 3   
+}
+
+.answer3-radio {
+    grid-area: 4 / 3 / 5 / 4   
+}
+
+.answer4-radio {
+    grid-area: 4 / 4 / 5 / 5   
+}
+
+.radio-button {
+    height: 5vh;
+    width: 5vh;
+    justify-self: center;
+    align-self: center;
+    animation-duration: 0.75s;
+}
+
+/*List screen code*/
+
+.list-screen {
+    background-color: black;
+    border: 10px white solid;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    animation-duration: 1.5s;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    padding: 1vh;
+}
+
+.questions-ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0%;
+    width: 100%;
+}
+
+.question-on-list {
+    height: 10vh;
+    width: 100%;
+    align-self: start;
+    background-color: black;
+    font-size: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    margin-bottom: 15vh;
+    margin-top: 2vh;
+    padding-left: 2vh;
+}
+
+.question-text-div {
+    grid-area: 1 / 1 / 2 / 4;
+    text-align: center;
+    border: 5px solid;
+    width: 100%;
+    height: 10vh;
+    min-height: 10vh;
+    margin-bottom: 1vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    overflow: auto;
+}
+
+.question-text {
+    color: white;
+    font-size: 2rem;
+    margin-left: 2vh;
+}
+
+.delete-question-button {
+    animation-duration: 0.75s;
+    width: 10vh;
+    min-width: 10vh;
+    height: 10vh;
+    border: 5px white solid;
+    background-color: rgb(255, 91, 91);
+    font-size: 2.5rem;
+    color: white;
+    grid-area: 1 / 4 / 2 / 5;
+}
+
+.answer-display-area {
+    overflow: auto;
+    height: 10vh;
+    width: 15vh;
+    border: 5px white solid;
+    text-align: center;
+    color: white;
+    font-size: 1rem;
+    animation-duration: 0.75s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.answer-1-display {
+    grid-area: 2 / 1 / 3 / 2;
+    background-color: rgb(90, 255, 140);
+}
+
+.answer-2-display {
+    grid-area: 2 / 2 / 3 / 3;
+    background-color: rgb(255, 91, 91);
+}
+
+.answer-3-display {
+    grid-area: 2 / 3 / 3 / 4;
+    background-color: rgb(255, 91, 91);
+}
+
+.answer-4-display {
+    grid-area: 2 / 4 / 3 / 5;
+    background-color: rgb(255, 91, 91);
+}
+
+.list-screen-return-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation-duration: 0.75s;
+    justify-self: center;
+    align-self: center;
+    height: 10vh;
+    width: 10vh;
+    border: 5px white solid;
+    background-color: black;
+    font-size: 1.4rem;
+    color: white;
+    grid-area: 1 / 4 / 2 / 5;
+    opacity: 0%;
+}
+
+.answer-display-text {
+    font-size: 1.4rem;
+    color: white;
+}
+
+.questions-ul, .list-screen-return-button {
+    animation-duration: 0.75s;
+}
+
+/*Player count screen code*/
+
+#players-count-screen {
+    background-color: black;
+    border: 10px white solid;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    animation-duration: 1.5s;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    padding: 1vh; 
+}
+
+.players-count-screen-utility {
+    width: 40vh;
+    height: 40vh;
+    grid-area: 1 / 1 / 2 / 2;
+    opacity: 0%;
+    animation-duration: 1.5s;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    text-align: center;
+}
+
+.two-players {
+    width: 40vh;
+    height: 40vh;
+    grid-area: 1 / 2 / 2 / 3;
+    opacity: 0%;
+    animation-duration: 1.5s;
+}
+
+.three-players {
+    width: 40vh;
+    height: 40vh;
+    grid-area: 2 / 1 / 3 / 2;
+    opacity: 0%;
+    animation-duration: 1.5s;
+}
+
+.four-players {
+    width: 40vh;
+    height: 40vh;
+    grid-area: 2 / 2 / 3 / 3;
+    opacity: 0%;
+    animation-duration: 1.5s;
+}
+
+.players-count-screen-h4 {
+    font-size: 1.4rem;
+    color: white;
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.players-count-screen-return-button {
+    height: 10vh;
+    width: 10vh;
+    border: 5px white solid;
+    background-color: black;
+    font-size: 1.4rem;
+    color: white;
+    grid-area: 2 / 1 / 3 / 2;
+    place-self: center;
+}
+
+.players-count-screen-utility, .two-players, .three-players, .four-players {
+    border: 10px white solid;
+}
+
+/*Game screen code*/
+
+#game-screen {
+    width: 100vw;
+    height: 100vh;
+    background-image: url(./litBackground.jpg);
+    display: none;
+    grid-template-columns: 60vw 30vw;
+    grid-template-rows: 20vh 70vh;
+    justify-items: center;
+    animation-duration: 1.5s;
+    opacity: 0%;
+}
+
+.score-board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.questions-remaining {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    grid-area: 1 / 2 / 2 / 3;
+    margin-top: 5vw;
+}
+
+.ask-question {
+    background-color: black;
+    color: white;
+    height: 40vh;
+    width: 40vh;
+    grid-area: 2 / 1 / 3 / 2;
+    justify-self: center;
+    align-self: center;
+    border: 10px solid white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    font-size: 10rem;
+}
+
+.player-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    width: 15vw;
+    height: 15vw;
+    margin-top: 5vw;
+}
+
+.player-section-item {
+    height: 10vw;
+    width: 10vw;
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.asked-question {
+    background-color: black;
+    border: 10px white solid;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    animation-duration: 1.5s;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    padding: 1vh; 
+    justify-self: center;
+    align-self: center;
+}
+
+.is-answer-correct {
+    font-size: 2rem;
+    align-self: center;
+    justify-self: center;
+}
+
+/*End screen code*/
+
+#end-screen {
+    background-color: black;
+    border: 10px white solid;
+    display: none;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    animation-duration: 1.5s;
+    padding: 1vh; 
+}
+
+.winner-text {
+    font-size: 3rem;
+    font-weight: bolder;
+}
+
+.winner-image {
+    height: 30vh;
+    width: 30vh;
+}

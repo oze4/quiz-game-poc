@@ -1170,7 +1170,7 @@ play.addEventListener('click', function () {
         startGame(2);
         playersCountScreen.style.pointerEvents = 'none';
       } else {
-        playersCountScreenH4.innerText = 'عدد الاسئلة قليل جدا';
+        playersCountScreenH4.innerText = 'عدد الاسئلة قليل جدا (# of questions is small)';
       }
     });
 
@@ -1179,7 +1179,7 @@ play.addEventListener('click', function () {
         startGame(3);
         playersCountScreen.style.pointerEvents = 'none';
       } else {
-        playersCountScreenH4.innerText = 'عدد الاسئلة قليل جدا';
+        playersCountScreenH4.innerText = 'عدد الاسئلة قليل جدا (# of questions is small)';
       }
     });
 
@@ -1188,7 +1188,7 @@ play.addEventListener('click', function () {
         startGame(4);
         playersCountScreen.style.pointerEvents = 'none';
       } else {
-        playersCountScreenH4.innerText = 'عدد الاسئلة قليل جدا';
+        playersCountScreenH4.innerText = 'عدد الاسئلة قليل جدا (# of questions is small)';
       }
     });
 

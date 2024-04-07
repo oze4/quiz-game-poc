@@ -139,15 +139,17 @@ function getParsedLocalStorage(key) {
 }
 
 /**
- * Removes question from localstorage via the actual questing string.
+ * Removes question from localstorage via the actual question string.
  * 
  * @param {string} key 
  * @param {string} question : question to remove
  */
 function removeQuestionFromLocalStorage(key="", question="") {
   const existing = getParsedLocalStorage(key); // should be an array
-  const withRemoved = existing.filter(q => q.question !== question);
-  localStorage.setItem(key, JSON.stringify(withRemoved));
+  if (existing) {
+    const withRemoved = existing.filter(q => q.question !== question);
+    localStorage.setItem(key, JSON.stringify(withRemoved));
+  }
 }
 
 /**

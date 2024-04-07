@@ -651,7 +651,7 @@ play.addEventListener('click', function () {
     };
 
     playersCountScreenReturnBtn.innerHTML = '<i class="fa-solid fa-rotate-left"></i>';
-    playersCountScreenH4.innerText = 'اختر عدد اللاعبين';
+    playersCountScreenH4.innerText = 'اختر عدد اللاعبين (choose number of players)';
 
     playersCountScreenUtility.appendChild(playersCountScreenReturnBtn);
     playersCountScreenUtility.appendChild(playersCountScreenH4);

@@ -16,14 +16,21 @@ let settingsScreen = document.getElementById('settings-screen')
 let playersCountScreen = document.getElementById('players-count-screen');
 let body = document.getElementById('body');
 let questionsListBtn = document.createElement('button');
-let questionsArray = [];
-let correctAnswer;
-let wrongAnswers = [];
+//let questionsArray = [];
+//let correctAnswer;
+//let wrongAnswers = [];
 let numsArr = [0, 1, 2];
 let numOfPlayers = 0;
 let turn = 0;
 let gameScreen = document.getElementById('game-screen');
 let endScreen = document.getElementById('end-screen');
+
+/**
+ * IMPORTANT !!
+ * 
+ * This is the key we use to store and retrieve data from localstorage
+ */
+const LOCAL_STORAGE_KEY = "quizGame";
 
 // INTRO SCREEN CODE
 
@@ -113,6 +120,60 @@ if (randomIntroNum === 0) {
   startDivright.style.borderRadius = '0px';
   startDivLeft.style.borderRadius = '0px';
 }
+
+/**
+ * 
+ *  Functions to interact with localstorage
+ * 
+ */
+
+/**
+ * Gets item from localstorage with provided key.
+ * We return the value already parsed with JSON.parse
+ * 
+ * @param {string} key 
+ * @returns {Object | null} Returns parsed contents of localstorage or null.
+ */
+function getParsedLocalStorage(key) {
+  return JSON.parse(localStorage.getItem(key));
+}
+
+/**
+ * Removes question from localstorage via the actual questing string.
+ * 
+ * @param {string} key 
+ * @param {string} question : question to remove
+ */
+function removeQuestionFromLocalStorage(key="", question="") {
+  const existing = getParsedLocalStorage(key); // should be an array
+  const withRemoved = existing.filter(q => q.question !== question);
+  localStorage.setItem(key, JSON.stringify(withRemoved));
+}
+
+/**
+ * Adds a question to localstorage. If no questions exist, we create the
+ * questions array in localstorage.
+ * 
+ * @param {*} key 
+ * @param {Object} question : the question object should have the following shape:
+ * {
+ *    question: String,
+ *    correctAnswer: String,
+ *    wrongAnswers: String[], // Array of strings
+ * }
+ */
+function addQuestionToLocalStorage(key="", question={}) {
+  let finalValue = [question];
+  const existing = getParsedLocalStorage(key);
+  if (existing) {
+    finalValue = [...existing, question];
+  }
+  localStorage.setItem(key, JSON.stringify(finalValue));
+}
+
+/**
+ *  END Functions to interact with localstorage
+ */
 
 // Adding eventListeners
 
@@ -275,6 +336,9 @@ settings.addEventListener('click', function () {
       if (inputQuestionArea.value != '') {
         if (answer1Area.value != '' && answer2Area.value != '' && answer3Area.value != '' && answer4Area.value != '') {
           if (answer1RadioBtn.checked || answer2RadioBtn.checked || answer3RadioBtn.checked || answer4RadioBtn.checked) {
+            const wrongAnswers = [];
+            let correctAnswer = "";
+
             if (answer1RadioBtn.checked) {
               correctAnswer = answer1Area.value
               wrongAnswers.push(answer2Area.value)
@@ -297,17 +361,22 @@ settings.addEventListener('click', function () {
               wrongAnswers.push(answer3Area.value)
             }
 
-            numsArr.sort(() => Math.random() - 0.5);
+            numsArr.sort(() => Math.random() - 0.5); // Idk what this does...
 
-            let question = {
-              theQuestion: inputQuestionArea.value,
-              correct: correctAnswer,
-              wrongAnswer1: wrongAnswers[numsArr[0]],
-              wrongAnswer2: wrongAnswers[numsArr[1]],
-              wrongAnswer3: wrongAnswers[numsArr[2]],
-            };
-
-            questionsArray.push(question);
+            // let question = {
+            //   theQuestion: inputQuestionArea.value,
+            //   correct: correctAnswer,
+            //   wrongAnswer1: wrongAnswers[numsArr[0]],
+            //   wrongAnswer2: wrongAnswers[numsArr[1]],
+            //   wrongAnswer3: wrongAnswers[numsArr[2]],
+            // };
+            const question = {
+              question: inputQuestionArea.value,
+              correctAnswer,
+              wrongAnswers,
+            }; 
+            // Add question to localstorage
+            addQuestionToLocalStorage(LOCAL_STORAGE_KEY, question);
 
             inputQuestionArea.value = '';
             answer1Area.value = '';
@@ -480,7 +549,9 @@ questionsListBtn.addEventListener('click', function () {
 
   //Making the questions appear in a list
 
-  for (let i = 0; i < questionsArray.length; i++) {
+  const currentQuestions = getParsedLocalStorage(LOCAL_STORAGE_KEY);
+
+  for (let i = 0; i < currentQuestions.length; i++) {
     let questionOnList = document.createElement('li');
 
     questionOnList.classList.add('question-on-list');
@@ -539,11 +610,16 @@ questionsListBtn.addEventListener('click', function () {
     answer4DisplayText.classList.add('answer-display-text');
     answer4Display.appendChild(answer4DisplayText);
 
-    questionText.innerText = questionsArray[i].theQuestion;
-    answer1DisplayText.innerText = questionsArray[i].correct;
-    answer2DisplayText.innerText = questionsArray[i].wrongAnswer1;
-    answer3DisplayText.innerText = questionsArray[i].wrongAnswer2;
-    answer4DisplayText.innerText = questionsArray[i].wrongAnswer3;
+    // questionText.innerText = questionsArray[i].theQuestion;
+    // answer1DisplayText.innerText = questionsArray[i].correct;
+    // answer2DisplayText.innerText = questionsArray[i].wrongAnswer1;
+    // answer3DisplayText.innerText = questionsArray[i].wrongAnswer2;
+    // answer4DisplayText.innerText = questionsArray[i].wrongAnswer3;
+    questionText.innerText = currentQuestions[i].question;
+    answer1DisplayText.innerText = currentQuestions[i].correctAnswer;
+    answer2DisplayText.innerText = currentQuestions[i].wrongAnswers[0];
+    answer3DisplayText.innerText = currentQuestions[i].wrongAnswers[1];
+    answer4DisplayText.innerText = currentQuestions[i].wrongAnswers[2];
 
     questionOnList.appendChild(questionTextDiv);
     questionOnList.appendChild(answer1Display);
@@ -561,9 +637,16 @@ questionsListBtn.addEventListener('click', function () {
       answer3Display.remove();
       answer4Display.remove();
 
-      for (let i = 0; i < questionsArray.length; i++) {
-        if (questionsArray[i].theQuestion === questionText.innerText) {
-          questionsArray.splice(i, 1);
+      // for (let i = 0; i < questionsArray.length; i++) {
+      //   if (questionsArray[i].theQuestion === questionText.innerText) {
+      //     questionsArray.splice(i, 1);
+      //   }
+      // }
+      for (let i = 0; i < currentQuestions.length; i++) {
+        const targetQuestion = questionText.innerText;
+        if (currentQuestions[i].question === targetQuestion) {
+          currentQuestions.splice(i, 1);
+          removeQuestionFromLocalStorage(LOCAL_STORAGE_KEY, targetQuestion);
         }
       }
 
@@ -624,6 +707,8 @@ play.addEventListener('click', function () {
     playersCountScreen.style.backgroundColor = 'rgb(0, 255, 255)';
   };
 
+  const currentQuestions = getParsedLocalStorage(LOCAL_STORAGE_KEY);
+
   setTimeout(() => {
 
     let playersCountScreenUtility = document.createElement('div');
@@ -672,7 +757,6 @@ play.addEventListener('click', function () {
       fourPlayers.style.animationName = 'disappear';
 
       setTimeout(() => {
-
         playersCountScreenUtility.style.animationName = 'disappear';
         twoPlayers.style.animationName = 'disappear';
         threePlayers.style.animationName = 'disappear';
@@ -730,7 +814,8 @@ play.addEventListener('click', function () {
 
         if (numOfPlayers === 2) {
 
-          questionsRemaining.textContent = `عدد الاسئلة الباقية: ${questionsArray.length}`;
+          //questionsRemaining.textContent = `عدد الاسئلة الباقية: ${questionsArray.length}`;
+          questionsRemaining.textContent = `عدد الاسئلة الباقية: ${currentQuestions.length}`;
 
           let player1Section = document.createElement('div');
           let player1Icon = document.createElement('img');
@@ -770,7 +855,8 @@ play.addEventListener('click', function () {
           gameScreen.appendChild(scoreBoard);
           gameScreen.appendChild(questionsRemaining);
         } else if (numOfPlayers === 3) {
-          questionsRemaining.textContent = `عدد الاسئلة الباقية: ${questionsArray.length}`;
+          // questionsRemaining.textContent = `عدد الاسئلة الباقية: ${questionsArray.length}`;
+          questionsRemaining.textContent = `عدد الاسئلة الباقية: ${currentQuestions.length}`;
 
           let player1Section = document.createElement('div');
           let player1Icon = document.createElement('img');
@@ -826,7 +912,8 @@ play.addEventListener('click', function () {
           gameScreen.appendChild(scoreBoard);
           gameScreen.appendChild(questionsRemaining);
         } else if (numOfPlayers === 4) {
-          questionsRemaining.textContent = `عدد الاسئلة الباقية: ${questionsArray.length}`;
+          // questionsRemaining.textContent = `عدد الاسئلة الباقية: ${questionsArray.length}`;
+          questionsRemaining.textContent = `عدد الاسئلة الباقية: ${currentQuestions.length}`;
 
           let player1Section = document.createElement('div');
           let player1Icon = document.createElement('img');
@@ -977,10 +1064,12 @@ play.addEventListener('click', function () {
           answerChoice4Text.classList.add('answer-display-text');
           answerChoice4.appendChild(answerChoice4Text);
 
-          let randomQuestionNum = Math.floor(Math.random() * questionsArray.length);
+          // let randomQuestionNum = Math.floor(Math.random() * questionsArray.length);
+          let randomQuestionNum = Math.floor(Math.random() * currentQuestions.length);
 
           let questionSelectedText = document.createElement('h4');
-          questionSelectedText.innerText = questionsArray[randomQuestionNum].theQuestion;
+          //questionSelectedText.innerText = questionsArray[randomQuestionNum].theQuestion;
+          questionSelectedText.innerText = currentQuestions[randomQuestionNum].question;
 
           let randomNum = Math.floor(Math.random() * 4)
 
@@ -1029,18 +1118,28 @@ play.addEventListener('click', function () {
           // }
 
           function showWrongAnswers(choice1, choice2, choice3) {
-            choice1.innerText = questionsArray[randomQuestionNum].wrongAnswer1;
-            choice2.innerText = questionsArray[randomQuestionNum].wrongAnswer2;
-            choice3.innerText = questionsArray[randomQuestionNum].wrongAnswer3;
+            // choice1.innerText = questionsArray[randomQuestionNum].wrongAnswer1;
+            // choice2.innerText = questionsArray[randomQuestionNum].wrongAnswer2;
+            // choice3.innerText = questionsArray[randomQuestionNum].wrongAnswer3;
+            choice1.innerText = currentQuestions[randomQuestionNum].wrongAnswers[0];
+            choice2.innerText = currentQuestions[randomQuestionNum].wrongAnswers[1];
+            choice3.innerText = currentQuestions[randomQuestionNum].wrongAnswers[2];
           }
 
           function wrongAnswerPicked() {
             isAnswerCorrect.style.color = 'rgb(255, 91, 91)'
             isAnswerCorrect.innerText = 'اجابة خاطئة!';
 
-            for (let i = 0; i < questionsArray.length; i++) {
-              if (questionsArray[i].theQuestion === questionSelectedText.innerText) {
-                questionsArray.splice(i, 1);
+            //for (let i = 0; i < questionsArray.length; i++) {
+            //  if (questionsArray[i].theQuestion === questionSelectedText.innerText) {
+            //    questionsArray.splice(i, 1);
+            //  }
+            //}
+            for (let i = 0; i < currentQuestions.length; i++) {
+              const targetQuestion = questionSelectedText.innerText;
+              if (currentQuestions[i].question === targetQuestion) {
+                currentQuestions.splice(i, 1);
+                removeQuestionFromLocalStorage(LOCAL_STORAGE_KEY, targetQuestion);
               }
             }
 
@@ -1054,9 +1153,16 @@ play.addEventListener('click', function () {
             isAnswerCorrect.innerText = 'اجابة صحيحة!';
             // incrementScore();
 
-            for (let i = 0; i < questionsArray.length; i++) {
-              if (questionsArray[i].theQuestion === questionSelectedText.innerText) {
-                questionsArray.splice(i, 1);
+            // for (let i = 0; i < questionsArray.length; i++) {
+            //   if (questionsArray[i].theQuestion === questionSelectedText.innerText) {
+            //     questionsArray.splice(i, 1);
+            //   }
+            // }
+            for (let i = 0; i < currentQuestions.length; i++) {
+              const targetQuestion = questionSelectedText.innerText;
+              if (currentQuestions[i].question === targetQuestion) {
+                currentQuestions.splice(i, 1);
+                removeQuestionFromLocalStorage(LOCAL_STORAGE_KEY, targetQuestion);
               }
             }
 
@@ -1066,7 +1172,8 @@ play.addEventListener('click', function () {
           };
 
           function displayAnswers(correctChoiceText, correctChoice, wrongChoice1, wrongChoice2, wrongChoice3, firstAnswer, secondAnswer, thirdAnswer) {
-            correctChoiceText.innerText = questionsArray[randomQuestionNum].correct;
+            //correctChoiceText.innerText = questionsArray[randomQuestionNum].correct;
+            correctChoiceText.innerText = currentQuestions[randomQuestionNum].correctAnswer;
 
             correctChoice.addEventListener('click', function () {
               correctAnswerPicked();
@@ -1100,7 +1207,8 @@ play.addEventListener('click', function () {
           }
 
           function checkIfGameIsOver() {
-            if (questionsArray.length === 0) {
+            //if (questionsArray.length === 0) {
+            if (currentQuestions.length === 0) {
               setTimeout(() => {
                 endScreen.style.display = 'flex';
                 endScreen.style.animationName = 'settings-screen-showup';
@@ -1166,7 +1274,8 @@ play.addEventListener('click', function () {
     };
 
     twoPlayers.addEventListener('click', function () {
-      if (questionsArray.length >= 2) {
+      //if (questionsArray.length >= 2) {
+        if (currentQuestions.length >= 2) {
         startGame(2);
         playersCountScreen.style.pointerEvents = 'none';
       } else {
@@ -1175,7 +1284,8 @@ play.addEventListener('click', function () {
     });
 
     threePlayers.addEventListener('click', function () {
-      if (questionsArray.length >= 3) {
+      //if (questionsArray.length >= 3) {
+        if (currentQuestions.length >= 3) {
         startGame(3);
         playersCountScreen.style.pointerEvents = 'none';
       } else {
@@ -1184,7 +1294,8 @@ play.addEventListener('click', function () {
     });
 
     fourPlayers.addEventListener('click', function () {
-      if (questionsArray.length >= 4) {
+      // if (questionsArray.length >= 4) {
+      if (currentQuestions.length >= 4) {
         startGame(4);
         playersCountScreen.style.pointerEvents = 'none';
       } else {

@@ -256,7 +256,7 @@ settings.addEventListener('click', function () {
     errorMsg.classList.add('error-message');
     returnBtn.classList.add('return-button');
     returnBtn.innerHTML = '<i class="fa-solid fa-rotate-left"></i>';
-    confirmQuestionBtn.innerText = 'إضافة';
+    confirmQuestionBtn.innerText = 'إضافة (Add)';
     questionsListBtn.innerHTML = '<i class="fa-solid fa-list"></i>';
     answer1Area.classList.add('answer1-area', 'answer-area');
     answer2Area.classList.add('answer2-area', 'answer-area');
@@ -321,13 +321,13 @@ settings.addEventListener('click', function () {
             wrongAnswers = [];
             errorMsg.innerText = '';
           } else {
-            errorMsg.innerText = 'هناك بيانات ناقصة';
+            errorMsg.innerText = 'هناك بيانات ناقصة (Missing Data)';
           }
         } else {
-          errorMsg.innerText = 'هناك بيانات ناقصة';
+          errorMsg.innerText = 'هناك بيانات ناقصة (Missing Data)';
         }
       } else {
-        errorMsg.innerText = 'هناك بيانات ناقصة';
+        errorMsg.innerText = 'هناك بيانات ناقصة (Missing Data)';
       }
 
     });
